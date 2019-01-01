@@ -8,7 +8,7 @@ class OcrAPI
 {
     private $key;
     private $url;
-    
+
     public function __construct($apiKey, $url = '')
     {
         $this->key = $apiKey;
@@ -59,12 +59,14 @@ class OcrAPI
     {
         $client = new HttpClient();
 
-        $lang = isset($options['lang']) ? $options['lang'] : 'eng';
-        $headers = [ 'apikey' => $this->key ];
+        //$lang = isset($options['language']) ? $options['lang'] : 'eng';
+        $headers = ['apikey' => $this->key];
         $multipart = [
-                [ 'name' => 'language', 'contents' => 'eng' ],
-                [ 'name' => $fldName, 'contents' => $fldValue ]
-            ];
+            ['name' => $fldName, 'contents' => $fldValue]
+        ];
+        foreach ($options as $option_name => $option_value) {
+            $multipart[] = ['name' => $option_name, 'contents' => $option_value];
+        }
 
         $url = $this->url == '' ? 'https://api.ocr.space/parse/image' : $this->url;
         try {

@@ -10,6 +10,7 @@ class OcrResponse
     protected $errorMessage = null;
     protected $errorDetails = null;
     protected $processingTime = null;
+    protected $ocrExitCode = null;
 
     public function __construct($jsonResponse)
     {
@@ -19,11 +20,11 @@ class OcrResponse
 
     protected function parseResponse()
     {
-        $this->parsedResults = $this->jsonResponse->ParsedResults;
-        $this->ocrExitCode = $this->jsonResponse->OCRExitCode;
-        $this->errorMessage = $this->jsonResponse->ErrorMessage;
-        $this->errorDetails = $this->jsonResponse->ErrorDetails;
-        $this->processingTime = $this->jsonResponse->ProcessingTimeInMilliseconds;
+        $this->parsedResults = @$this->jsonResponse->ParsedResults;
+        $this->ocrExitCode = @$this->jsonResponse->OCRExitCode;
+        $this->errorMessage = @$this->jsonResponse->ErrorMessage;
+        $this->errorDetails = @$this->jsonResponse->ErrorDetails;
+        $this->processingTime = @$this->jsonResponse->ProcessingTimeInMilliseconds;
     }
 
 

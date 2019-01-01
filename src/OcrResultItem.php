@@ -8,6 +8,7 @@ class OcrResultItem
     protected $exitCode;
     protected $errorMessage;
     protected $errorDetails;
+    protected $text;
 
     public function __construct($item)
     {
